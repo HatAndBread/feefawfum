@@ -1,9 +1,10 @@
 {
-  "name": "electron-react-ts",
-  "productName": "Electron React TypeScript",
-  "description": "An Electron boilerplate with hot reloading for React and TypeScript.",
+  "name": "feefawfum",
+  "productName": "Feefawfum",
+  "description": "An Electron app for making noise.",
   "version": "1.7.1",
-  "license": "MIT",
+  "license": "UNLICENSED",
+  "private": true,
   "main": "dist/main.js",
   "scripts": {
     "predev": "rimraf dist",

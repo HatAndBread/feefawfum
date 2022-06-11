@@ -1,34 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Synth } from "Tone";
+import { AppContext } from "./Context";
+import { Synth, start } from "Tone";
+import useGlobals from './Hooks/use-globals';
 import "./App.css";
 
-const { myAPI } = window;
-
 export const App = () => {
-  const [count, setCount] = useState(0);
-
-  const onCountUp = () => setCount((count) => count + 1);
-  const onCountDown = () => setCount((count) => count - 1);
-
-  useEffect(() => {
-    myAPI.update(count);
-  }, [count]);
-
+  const {toneStarted, setToneStarted} = useGlobals();
   return (
-    <div className="container">
-      <h1>{count}</h1>
-      <div>
-        <button onClick={onCountDown}>&#x25BC;</button>
-        <button onClick={onCountUp}>&#x25B2;</button>
-        <button
-          onClick={() => {
-            const synth = new Synth().toDestination();
-            synth.triggerAttackRelease("c4", "8n");
-          }}
-        >
-          play
-        </button>
+    <AppContext.Provider value={useGlobals()}>
+      <div className="container">
+        <div>
+          {toneStarted ? <></> : (
+            <button
+              onClick={async () => {
+                await start();
+                setToneStarted(true);
+                const synth = new Synth().toDestination();
+                synth.triggerAttackRelease("c4", "8n");
+              }}
+            >
+              Start
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+    </AppContext.Provider>
   );
 };
