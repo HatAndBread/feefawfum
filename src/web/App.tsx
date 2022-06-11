@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { Synth } from "Tone";
+import "./App.css";
 
 const { myAPI } = window;
 
@@ -19,6 +20,14 @@ export const App = () => {
       <div>
         <button onClick={onCountDown}>&#x25BC;</button>
         <button onClick={onCountUp}>&#x25B2;</button>
+        <button
+          onClick={() => {
+            const synth = new Synth().toDestination();
+            synth.triggerAttackRelease("c4", "8n");
+          }}
+        >
+          play
+        </button>
       </div>
     </div>
   );
